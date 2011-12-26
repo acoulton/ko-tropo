@@ -106,6 +106,24 @@ class Tropo_Call
 	{
 		return $this->_session_data['from']['id'];
 	}
+	
+	/**
+	 * Reports whether the caller_id for the caller_from is masked
+	 * 
+	 * @return boolean
+	 */
+	public function from_caller_unknown()
+	{
+		$id = $this->_session_data['from']['id'];
+		switch ($id)
+		{
+			case '0':
+			case 'Unknown':
+				return TRUE;
+			default:
+				return FALSE;
+		}
+	}
 
 	public function set_from_caller_id($caller_id)
 	{

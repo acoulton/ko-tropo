@@ -146,6 +146,27 @@ class Tropo_CallTest extends Unittest_TestCase
 		$this->assertEquals('foo-bar', $call->from_caller_id());
 		return $call;
 	}
+	
+	public function provider_should_report_when_from_caller_id_unknown()
+	{
+		return array(
+			array(0, TRUE),
+			array('Unknown', TRUE),
+			array('441317185666', FALSE)
+			);
+	}
+	
+	/**
+	 * @dataProvider provider_should_report_when_from_caller_id_unknown()
+	 */
+	public function test_should_report_when_from_caller_id_unknown($id, $expected)
+	{
+		$call = new Tropo_Call(array(
+			'from' => array(
+				'id' => $id
+			)));
+		$this->assertEquals($expected, $call->from_caller_unknown());
+	}
 
 	public function test_should_return_result_value_when_exists()
 	{
